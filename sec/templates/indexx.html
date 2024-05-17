@@ -1,0 +1,179 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CVE Data</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function goToDetail(cveId) {
+            window.location.href = '/cves/' + cveId;
+        }
+    </script>
+</head>
+<body>
+    <h1>CVE Data</h1>
+    <div>
+        <span>Show entries:</span>
+        <select id="per_page" onchange="changePerPage()">
+            <option value="10" {% if per_page == 10 %} selected {% endif %}>10</option>
+            <option value="50" {% if per_page == 50 %} selected {% endif %}>50</option>
+            <option value="100" {% if per_page == 100 %} selected {% endif %}>100</option>
+        </select>
+    </div>
+    <table>
+        <tr>
+            <th>CVE ID</th>
+            <th>Identifier</th>
+            <th>Published Date</th>
+            <th>Last Modified Date</th>
+            <th>Status</th>
+        </tr>
+        {% for vuln in data %}
+        <tr onclick="goToDetail('{{ vuln['cve']['id'] }}')">
+            <td>{{ vuln['cve']['id'] }}</td>
+            <td>{{ vuln['cve']['sourceIdentifier'] }}</td>
+            <td>{{ vuln['cve']['published'] }}</td>
+            <td>{{ vuln['cve']['lastModified'] }}</td>
+            <td>{{ vuln['cve']['vulnStatus'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div>
+        <span>Total Records: {{ total_records }}</span>
+    </div>
+    <div>
+        <button onclick="previousPage()">Previous</button>
+        <span>Page {{ page }}</span>
+        <button onclick="nextPage()">Next</button>
+    </div>
+
+    <script>
+        var currentPage = {{ page }};
+        var perPage = {{ per_page }};
+
+        function changePerPage() {
+            var perPage = document.getElementById("per_page").value;
+            window.location.href = "?page=1&per_page=" + perPage;
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                window.location.href = "?page=" + (currentPage - 1) + "&per_page=" + perPage;
+            }
+        }
+
+        function nextPage() {
+            window.location.href = "?page=" + (currentPage + 1) + "&per_page=" + perPage;
+        }
+    </script>
+</body>
+</html>
+-->
+
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CVE Data</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function goToDetail(cveId) {
+            window.location.href = '/cves/' + cveId;
+        }
+    </script>
+</head>
+<body>
+    <h1>CVE Data</h1>
+    <div>
+        <span>Show entries:</span>
+        <select id="per_page" onchange="changePerPage()">
+            <option value="10" {% if per_page == 10 %} selected {% endif %}>10</option>
+            <option value="50" {% if per_page == 50 %} selected {% endif %}>50</option>
+            <option value="100" {% if per_page == 100 %} selected {% endif %}>100</option>
+        </select>
+    </div>
+    <table>
+        <tr>
+            <th>CVE ID</th>
+            <th>Identifier</th>
+            <th>Published Date</th>
+            <th>Last Modified Date</th>
+            <th>Status</th>
+        </tr>
+        {% for vuln in data %}
+        <tr onclick="goToDetail('{{ vuln['cve']['id'] }}')">
+            <td>{{ vuln['cve']['id'] }}</td>
+            <td>{{ vuln['cve']['sourceIdentifier'] }}</td>
+            <td>{{ vuln['cve']['published'] }}</td>
+            <td>{{ vuln['cve']['lastModified'] }}</td>
+            <td>{{ vuln['cve']['vulnStatus'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div>
+        <span>Total Records: {{ total_records }}</span>
+    </div>
+    <div>
+        <button onclick="previousPage()">Previous</button>
+        <span>Page {{ page }}</span>
+        <button onclick="nextPage()">Next</button>
+    </div>
+
+    <script>
+        var currentPage = {{ page }};
+        var perPage = {{ per_page }};
+
+        function changePerPage() {
+            var perPage = document.getElementById("per_page").value;
+            window.location.href = "?page=1&per_page=" + perPage;
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                window.location.href = "?page=" + (currentPage - 1) + "&per_page=" + perPage;
+            }
+        }
+
+        function nextPage() {
+            window.location.href = "?page=" + (currentPage + 1) + "&per_page=" + perPage;
+        }
+    </script>
+</body>
+</html>

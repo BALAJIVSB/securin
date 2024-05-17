@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ cve['cve']['id'] }}</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ cve['cve']['id'] }}</h1>
+    <p><strong>Description:</strong> {{ cve['cve']['description']['description_data'][0]['value'] }}</p>
+    <h2>CVSS V2 Metrics:</h2>
+    <table>
+        <tr>
+            <th>Severity</th>
+            <td>{{ cve['impact']['baseMetricV2']['severity'] }}</td>
+        </tr>
+        <tr>
+            <th>Score</th>
+            <td>{{ cve['impact']['baseMetricV2']['cvssV2']['baseScore'] }}</td>
+        </tr>
+        <tr>
+            <th>Vector String</th>
+            <td>{{ cve['impact']['baseMetricV2']['cvssV2']['vectorString'] }}</td>
+        </tr>
+        <tr>
+            <th>Access Vector</th>
+            <td>{{ cve['impact']['baseMetricV2']['cvssV2']['accessVector'] }}</td>
+        </tr>
+        <tr>
+            <th>Access Complexity</th>
+            <td>{{ cve['impact']['baseMetricV2']['cvssV2']['accessComplexity'] }}</td>
+        </tr>
+        <tr>
+            <th>Authentication</th>
+            <td>{{ cve['impact']['baseMetricV2']['cvssV2']['authentication'] }}</td>
+        </tr>
+        <tr>
+            <th>Confidentiality Impact</th>
+            <td>{{ cve['impact']['baseMetricV2']['cvssV2']['confidentialityImpact'] }}</td>
+        </tr>
+        <tr>
+            <th>Integrity Impact</th>
+            <td>{{ cve['impact']['baseMetricV2']['cvssV2']['integrityImpact'] }}</td>
+        </tr>
+        <tr>
+            <th>Availability Impact</th>
+            <td>{{ cve['impact']['baseMetricV2']['cvssV2']['availabilityImpact'] }}</td>
+        </tr>
+    </table>
+    <h2>Scores:</h2>
+    <table>
+        <tr>
+            <th>Exploitability Score</th>
+            <td>{{ cve['impact']['baseMetricV2']['exploitabilityScore'] }}</td>
+        </tr>
+        <tr>
+            <th>Impact Score</th>
+            <td>{{ cve['impact']['baseMetricV2']['impactScore'] }}</td>
+        </tr>
+    </table>
+    <h2>CPE:</h2>
+    <table>
+        <tr>
+            <th>Criteria</th>
+            <th>Match Criteria ID</th>
+            <th>Vulnerable</th>
+        </tr>
+        {% for cpe in cve['configurations']['nodes'][0]['cpe_match'] %}
+        <tr>
+            <td>{{ cpe['cpe23Uri'] }}</td>
+            <td>{{ cpe['cpe_name'][0]['cpe23Uri'] }}</td>
+            <td>{{ cpe['vulnerable'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
